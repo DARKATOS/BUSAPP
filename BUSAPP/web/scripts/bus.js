@@ -38,9 +38,8 @@ $(function()
         }
         else
         {
-            alert("Existe algun campo vacio")
+            alert("Existe algun campo vacio");
         }
     }
-    
 });
 

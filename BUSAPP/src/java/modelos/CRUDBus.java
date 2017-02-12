@@ -19,6 +19,8 @@ public class CRUDBus {
         return null;
     }
     
+    //terminar con procedimientosalmacenados
+    
     public boolean registrarBus(Bus bus)
     {
         return false;
