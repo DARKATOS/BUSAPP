@@ -54,7 +54,7 @@ public class Controladora1 extends HttpServlet {
         else if("mostrarBuses".equals(operacion))
         {
             CRUDBus crud=new CRUDBus();
-            ArrayList<Bus> buses=crud.mostrarBus();
+            ArrayList<Bus> buses=crud.mostrarBuses();
             Gson json=new Gson();
             String resultado=json.toJson(buses);
             response.setContentType("application/json");

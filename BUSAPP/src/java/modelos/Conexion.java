@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author JORGE_ALEJANDRO
  */
 public class Conexion {
-    private final String url = "jdbc:mysql://localhost:3306/prueba2";
+    private final String url = "jdbc:mysql://localhost:3306/busapp";
     private final String user = "root";
     private final String password = "";
 
