@@ -19,7 +19,7 @@ import modelos.CRUDBus;
 
 /**
  *
- * @author JORGE_ALEJANDRO
+ * @author NIYIRETH_OSORIO
  */
 @WebServlet(name = "Controladora1", urlPatterns = {"/Controladora1"})
 public class Controladora1 extends HttpServlet {
@@ -36,27 +36,24 @@ public class Controladora1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String operacion=request.getParameter("operacion");
-        if ("registrarBus".equals(operacion))
-        {
-            String placa=request.getParameter("placa");
-            String nombreConductor=request.getParameter("nombreConductor");
-            String tipo=request.getParameter("tipo");
-            int valorPasaje=Integer.parseInt(request.getParameter("valorPasaje"));
-            Bus bus=new Bus(-1, placa, nombreConductor,tipo, valorPasaje);
-            CRUDBus crud=new CRUDBus();
-            boolean mensaje=crud.registrarBus(bus);
-            Gson json=new Gson();
-            String resultado=json.toJson(mensaje);
+        String operacion = request.getParameter("operacion");
+        if ("registrarBus".equals(operacion)) {
+            String placa = request.getParameter("placa");
+            String nombreConductor = request.getParameter("nombre_Conductor");
+            String tipo = request.getParameter("tipo");
+            int valorPasaje = Integer.parseInt(request.getParameter("valor_Pasaje"));
+            Bus bus = new Bus(-1, placa, nombreConductor, tipo, valorPasaje);
+            CRUDBus crud = new CRUDBus();
+            boolean mensaje = crud.registrarBus(bus);
+            Gson json = new Gson();
+            String resultado = json.toJson(mensaje);
             response.setContentType("application/json");
             response.getWriter().write(resultado);
-        }
-        else if("mostrarBuses".equals(operacion))
-        {
-            CRUDBus crud=new CRUDBus();
-            ArrayList<Bus> buses=crud.mostrarBuses();
-            Gson json=new Gson();
-            String resultado=json.toJson(buses);
+        } else if ("mostrarBuses".equals(operacion)) {
+            CRUDBus crud = new CRUDBus();
+            ArrayList<Bus> buses = crud.mostrarBuses();
+            Gson json = new Gson();
+            String resultado = json.toJson(buses);
             response.setContentType("application/json");
             response.getWriter().write(resultado);
         }

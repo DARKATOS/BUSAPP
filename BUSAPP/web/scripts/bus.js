@@ -4,39 +4,39 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-//        $("registrarBus").click(registrarBus);
-//        function registrarBus()
-//        {
-//            var placa = $("#placa").val();
-//            var nombreConductor = $("#nombreConductor").val();
-//            var tipo = $("#tipo").val();
-//            var valorPasaje = $("#valorPasaje").val();
-//
-//            if (placa != null && nombreConductor != null && tipo != null && valorPasaje != null)
-//            {
-//                $.post("Controladora",
-//                        {
-//                            operacion: "registrarBus",
-//                            placa: placa,
-//                            nombreConductor: nombreConductor,
-//                            tipo: tipo,
-//                            valorPasaje: valorPasaje
-//                        },
-//                        function (data)
-//                        {
-//                            if (data)
-//                            {
-//                                alert("Se registro correctamente el bus");
-//                            } else
-//                            {
-//                                alert("Erro al registrar bus");
-//                            }
-//                        }, "json");
-//            } else
-//            {
-//                alert("Existe algun campo vacio")
-//            }
-//        }
+        $("registrarBus").click(registrarBus);
+        function registrarBus()
+        {
+            var placa = $("#placa").val();
+            var nombre_Conductor = $("#nombre_Conductor").val();
+            var tipo = $("#tipo").val();
+            var valor_Pasaje = $("#valor_Pasaje").val();
+
+            if (placa !== null && nombre_Conductor !== null && tipo !== null && valor_Pasaje !== null)
+            {
+                $.post("Controladora",
+                        {
+                            operacion: "registrarBus",
+                            placa: placa,
+                            nombre_Conductor: nombre_Conductor,
+                            tipo: tipo,
+                            valor_Pasaje: valor_Pasaje
+                        },
+                        function (data)
+                        {
+                            if (data)
+                            {
+                                alert("Se registro correctamente el bus");
+                            } else
+                            {
+                                alert("Erro al registrar bus");
+                            }
+                        }, "json");
+            } else
+            {
+                alert("Existe algun campo vacio")
+            }
+        }
 
     $.post("Controladora1",
             {
@@ -44,7 +44,7 @@ $(document).ready(function () {
             },
             function (data)
             {
-                if (data != null)
+                if (data !== null)
                 {
                     var tablaBuses = $("#tablaBuses");
                     for (var i = 0; i < data.length; i++) {
