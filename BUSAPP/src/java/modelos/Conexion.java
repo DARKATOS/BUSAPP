@@ -13,10 +13,10 @@ import java.sql.SQLException;
 
 /**
  *
- * @author JORGE_ALEJANDRO
+ * @author NIYIRETH_OSORIO
  */
 public class Conexion {
-    private final String url = "jdbc:mysql://localhost:3306/prueba2";
+    private final String url = "jdbc:mysql://localhost:3306/busapp";
     private final String user = "root";
     private final String password = "";
 
@@ -45,6 +45,18 @@ public class Conexion {
             return null;
         }
     }
+   
+    public CallableStatement ejecutarCall(String sql)
+    {
+        try {
+            fop=conectar.prepareCall(sql);
+            
+            return fop;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
     
     public boolean ejecutarActualizacion(String sql)
     {
