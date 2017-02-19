@@ -39,9 +39,9 @@ public class Controladora1 extends HttpServlet {
         String operacion = request.getParameter("operacion");
         if ("registrarBus".equals(operacion)) {
             String placa = request.getParameter("placa");
-            String nombreConductor = request.getParameter("nombre_Conductor");
+            String nombreConductor = request.getParameter("nombre_conductor");
             String tipo = request.getParameter("tipo");
-            int valorPasaje = Integer.parseInt(request.getParameter("valor_Pasaje"));
+            int valorPasaje = Integer.parseInt(request.getParameter("valor_pasaje"));
             Bus bus = new Bus(-1, placa, nombreConductor, tipo, valorPasaje);
             CRUDBus crud = new CRUDBus();
             boolean mensaje = crud.registrarBus(bus);

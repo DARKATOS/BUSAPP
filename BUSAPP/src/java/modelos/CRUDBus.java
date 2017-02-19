@@ -20,22 +20,23 @@ public class CRUDBus {
         Conexion conexion = new Conexion();
         conexion.establecerConexion();
         try {
-            CallableStatement resultado = conexion.ejecutarCall("call registrar_buses(?,?,?,?)");
+            CallableStatement resultado = conexion.ejecutarCall("call registrar_bus(?,?,?,?)");
 
             // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
             //se cargan los parametros de entrada
             resultado.setString("placa", bus.getPlaca());//Tipo String
-            resultado.setString("nombre_Conductor", bus.getNombreConductor());//Tipo entero
+            resultado.setString("nombre_conductor", bus.getNombreConductor());//Tipo entero
             resultado.setString("tipo", bus.getTipo());//Tipo entero
-            resultado.setInt("valor_Pasaje", bus.getValorPasaje());//Tipo entero
+            resultado.setInt("valor_pasaje", bus.getValorPasaje());//Tipo entero
             // parametros de salida
             // Se ejecuta el procedimiento almacenado
+            resultado.executeUpdate();
+            return true;
             // devuelve el valor del parametro de salida del procedimiento
         } catch (Exception e) {
-            System.out.println("Error al ejecutar el procedimiento!" + e.getMessage());
+            System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
+            return false;
         }
-
-        return false;
     }
 
     public ArrayList<Bus> mostrarBuses() {
@@ -59,8 +60,9 @@ public class CRUDBus {
 
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
+            return null;
         }
-        return null;
+        
     }
 
 }
