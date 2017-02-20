@@ -50,22 +50,9 @@ public class Conexion {
     {
         try {
             fop=conectar.prepareCall(sql);
-            
             return fop;
         } catch (SQLException ex) {
             return null;
-        }
-    }
-
-    
-    public boolean ejecutarActualizacion(String sql)
-    {
-        try {
-            fop=conectar.prepareCall(sql);
-            fop.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            return false;
         }
     }
 

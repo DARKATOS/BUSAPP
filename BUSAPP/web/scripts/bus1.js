@@ -4,43 +4,10 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-        $("registrarBus").click(registrarBus);
-        function registrarBus()
-        {
-            var placa = $("#placa").val();
-            var nombre_Conductor = $("#nombre_Conductor").val();
-            var tipo = $("#tipo").val();
-            var valor_Pasaje = $("#valor_Pasaje").val();
-
-            if (placa !== null && nombre_Conductor !== null && tipo !== null && valor_Pasaje !== null)
-            {
-                $.post("Controladora",
-                        {
-                            operacion: "registrarBus",
-                            placa: placa,
-                            nombre_Conductor: nombre_Conductor,
-                            tipo: tipo,
-                            valor_Pasaje: valor_Pasaje
-                        },
-                        function (data)
-                        {
-                            if (data)
-                            {
-                                alert("Se registro correctamente el bus");
-                            } else
-                            {
-                                alert("Erro al registrar bus");
-                            }
-                        }, "json");
-            } else
-            {
-                alert("Existe algun campo vacio")
-            }
-        }
 
     $.post("Controladora1",
             {
-                operacion: "mostrarBuses",
+                operacion: "mostrarBuses"
             },
             function (data)
             {
@@ -72,8 +39,6 @@ $(document).ready(function () {
                     alert("Error al mostrar buses");
                 }
             }, "json");
-
-
 }
 );
 
