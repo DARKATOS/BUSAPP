@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Registrar Bus</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="scripts/jquery.min.js"></script>
@@ -26,23 +26,26 @@ and open the template in the editor.
                     <h4>Formulario</h4>
                     <hr>
                     <div class="form-group">
-                        <label for="placa">Placa</label>
-                        <input type="text" class="form-control" id="placa" placeholder="Placa">
+                        <label for="plate">Placa</label>
+                        <input type="text" class="form-control" id="plate" placeholder="Placa">
                     </div>
                     <div class="form-group">
-                        <label for="nombre_conductor">Nombre del conductor</label>
-                        <input type="text" class="form-control" id="nombre_conductor" placeholder="Nombre del conductor">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Contrasena">
                     </div>
                     <div class="form-group">
-                        <label for="tipo">Tipo de bus</label>
-                        <input type="text" class="form-control" id="tipo" placeholder="Tipo de bus">
+                        <label for="driverName">Nombre del conductor</label>
+                        <input type="text" class="form-control" id="driverName" placeholder="Nombre del conductor">
                     </div>
                     <div class="form-group">
-                        <label for="valor_pasaje">Valor del pasaje</label>
-                        <input type="number" min="0" class="form-control" id="valor_pasaje" placeholder="Valor del pasaje">
+                        <label for="type">Tipo de bus</label>
+                        <input type="text" class="form-control" id="type" placeholder="Tipo de bus">
                     </div>
-
-                    <button type="button" class="btn btn-default" id="registrarBus">Registrar</button>
+                    <div class="form-group">
+                        <label for="ticketPrice">Valor del pasaje</label>
+                        <input type="number" min="0" class="form-control" id="ticketPrice" placeholder="Valor del pasaje">
+                    </div>
+                    <button type="button" class="btn btn-default" id="busRegister">Registrar</button>
                 </div>
             </div>
             <div class="col-xs-3"></div>
