@@ -5,15 +5,14 @@
  */
 $(function()
 {
-    $("#registrarBus").click(registrarBus);
-        function registrarBus()
+    $("#busRegister").click(busRegister);
+        function busRegister()
         {
             var plate = $("#plate").val();
             var password = $("#password").val();
             var driverName = $("#driverName").val();
             var type = $("#type").val();
             var ticketPrice = $("#ticketPrice").val();
-
             if (plate !== null && driverName !== null && type !== null && ticketPrice !== null && password!==null)
             {
                 $.post("Controller1",

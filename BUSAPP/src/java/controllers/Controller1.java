@@ -20,7 +20,7 @@ import models.CRUDBus;
  *
  * @author NIYIRETH_OSORIO
  */
-@WebServlet(name = "Controladora1", urlPatterns = {"/Controladora1"})
+@WebServlet(name = "Controller1", urlPatterns = {"/Controller1"})
 public class Controller1 extends HttpServlet {
 
     /**

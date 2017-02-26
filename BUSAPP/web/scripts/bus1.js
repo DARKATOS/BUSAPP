@@ -17,7 +17,7 @@ $(document).ready(function () {
                     for (var i = 0; i < data.length; i++) {
                         var idBus = data[i].id;
                         var plate = data[i].plate;
-                        var driverName = data[i].driverNanme;
+                        var driverName = data[i].driverName;
                         var type = data[i].type;
                         var ticketPrice = data[i].ticketPrice;
                         var tr = $("<tr>");

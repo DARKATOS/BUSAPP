@@ -33,26 +33,27 @@ public class Services {
 //    }
     
     @GET
-    @Path("/stringJSON/{idbus}/{latitude}/{longitude}")
+    @Path("/busLocationUpdate/{idbus}/{latitude}/{longitude}")
     @Produces(MediaType.APPLICATION_JSON)
     public String busLocationUpdate(@PathParam("idbus") int idbus, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
         return "Hola Mundo JIJIJ: ";
     }
     
     @GET
-    @Path("/stringJSON/{idbus}/{plate}")
+    @Path("/busLogIn/{idbus}/{plate}")
     @Produces(MediaType.APPLICATION_JSON)
     public String busLogIn(@PathParam("idbus") int idbus, @PathParam("plate") String plate) {
-        return "Hola Mundo JIJIJ: ";
+        CRUDBus crud=new CRUDBus();
+        String success=crud.busLoginService(idbus,plate);
+        return success;
     }
     
     @GET
-    @Path("/stringJSON/{plate}/{password}")
+    @Path("/busLogInRegister/{plate}/{password}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLoginRegister(@PathParam("plate") String plate, @PathParam("password") String password) {
-        Bus bus=new Bus(-1, plate, password, "", "", -1);
+    public String busLogInRegister(@PathParam("plate") String plate, @PathParam("password") String password) {
         CRUDBus crud=new CRUDBus();
-        bus=crud.busLoginRegisterService(bus);
+        Bus bus=crud.busLoginRegisterService(plate,password);
         Gson json=new Gson();
         String result=json.toJson(bus);
         return result;
