@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controladoras;
+package controllers;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelos.Bus;
-import modelos.CRUDBus;
+import models.Bus;
+import models.CRUDBus;
 
 /**
  *
  * @author NIYIRETH_OSORIO
  */
-@WebServlet(name = "Controladora1", urlPatterns = {"/Controladora1"})
-public class Controladora1 extends HttpServlet {
+@WebServlet(name = "Controller1", urlPatterns = {"/Controller1"})
+public class Controller1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,22 +35,23 @@ public class Controladora1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String operacion = request.getParameter("operacion");
-        if ("registrarBus".equals(operacion)) {
-            String placa = request.getParameter("placa");
-            String nombreConductor = request.getParameter("nombre_conductor");
-            String tipo = request.getParameter("tipo");
-            int valorPasaje = Integer.parseInt(request.getParameter("valor_pasaje"));
-            Bus bus = new Bus(-1, placa, nombreConductor, tipo, valorPasaje);
+        String operation = request.getParameter("operation");
+        if ("busRegister".equals(operation)) {
+            String plate = request.getParameter("plate");
+            String password = request.getParameter("password");
+            String driverName = request.getParameter("driverName");
+            String type = request.getParameter("type");
+            int ticketPrice = Integer.parseInt(request.getParameter("ticketPrice"));
+            Bus bus = new Bus(-1, plate,password, driverName, type, ticketPrice);
             CRUDBus crud = new CRUDBus();
-            boolean mensaje = crud.registrarBus(bus);
+            boolean message = crud.busRegister(bus);
             Gson json = new Gson();
-            String resultado = json.toJson(mensaje);
+            String result = json.toJson(message);
             response.setContentType("application/json");
-            response.getWriter().write(resultado);
-        } else if ("mostrarBuses".equals(operacion)) {
+            response.getWriter().write(result);
+        } else if ("busShow".equals(operation)) {
             CRUDBus crud = new CRUDBus();
-            ArrayList<Bus> buses = crud.mostrarBuses();
+            ArrayList<Bus> buses = crud.busShow();
             Gson json = new Gson();
             String resultado = json.toJson(buses);
             response.setContentType("application/json");

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelos;
+package models;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,30 +15,30 @@ import java.sql.SQLException;
  *
  * @author NIYIRETH_OSORIO
  */
-public class Conexion {
+public class PrimaryConnection {
     private final String url = "jdbc:mysql://localhost:3306/busapp";
     private final String user = "root";
     private final String password = "";
 
-    private Connection conectar;
+    private Connection connection;
     private CallableStatement fop;
 
-    public void establecerConexion() {
+    public void SetConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conectar = DriverManager.getConnection(url, user, password); // getting Statement object to execute query
+            connection = DriverManager.getConnection(url, user, password); // getting Statement object to execute query
             fop=null;
         } catch (SQLException ex) {
-            System.out.println("error en la conexion");
+            System.out.println("Connection error");
         } catch (ClassNotFoundException ex) {
             System.out.println("Error en la clase");
         }
     }
     
-    public ResultSet ejecutarConsulta(String sql)
+    public ResultSet executeQuery(String sql)
     {
         try {
-            fop=conectar.prepareCall(sql);
+            fop=connection.prepareCall(sql);
             ResultSet resultado=fop.executeQuery();
             return resultado;
         } catch (SQLException ex) {
@@ -46,20 +46,20 @@ public class Conexion {
         }
     }
    
-    public CallableStatement ejecutarCall(String sql)
+    public CallableStatement executeCall(String sql)
     {
         try {
-            fop=conectar.prepareCall(sql);
+            fop=connection.prepareCall(sql);
             return fop;
         } catch (SQLException ex) {
             return null;
         }
     }
 
-    public void desconectar() {
+    public void disconnect() {
         try {
             fop.close();
-            conectar.close();
+            connection.close();
         } catch (SQLException ex) {
             System.out.println("error al desconectar");
         }

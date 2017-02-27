@@ -5,27 +5,27 @@
  */
 $(document).ready(function () {
 
-    $.post("Controladora1",
+    $.post("Controller1",
             {
-                operacion: "mostrarBuses"
+                operation: "busShow"
             },
             function (data)
             {
                 if (data !== null)
                 {
-                    var tablaBuses = $("#tablaBuses");
+                    var tablaBuses = $("#busTable");
                     for (var i = 0; i < data.length; i++) {
                         var idBus = data[i].id;
-                        var placa = data[i].placa;
-                        var nombreConductor = data[i].nombreConductor;
-                        var tipo = data[i].tipo;
-                        var valorPasaje = data[i].valorPasaje;
+                        var plate = data[i].plate;
+                        var driverName = data[i].driverName;
+                        var type = data[i].type;
+                        var ticketPrice = data[i].ticketPrice;
                         var tr = $("<tr>");
                         var td1 = $("<td>", {text: idBus});
-                        var td2 = $("<td>", {text: placa});
-                        var td3 = $("<td>", {text: nombreConductor});
-                        var td4 = $("<td>", {text: tipo});
-                        var td5 = $("<td>", {text: valorPasaje});
+                        var td2 = $("<td>", {text: plate});
+                        var td3 = $("<td>", {text: driverName});
+                        var td4 = $("<td>", {text: type});
+                        var td5 = $("<td>", {text: ticketPrice});
 
                         tr.append(td1);
                         tr.append(td2);

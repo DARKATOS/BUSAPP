@@ -5,23 +5,24 @@
  */
 $(function()
 {
-    $("#registrarBus").click(registrarBus);
-        function registrarBus()
+    $("#busRegister").click(busRegister);
+        function busRegister()
         {
-            var placa = $("#placa").val();
-            var nombre_conductor = $("#nombre_conductor").val();
-            var tipo = $("#tipo").val();
-            var valor_pasaje = $("#valor_pasaje").val();
-
-            if (placa !== null && nombre_conductor !== null && tipo !== null && valor_pasaje !== null)
+            var plate = $("#plate").val();
+            var password = $("#password").val();
+            var driverName = $("#driverName").val();
+            var type = $("#type").val();
+            var ticketPrice = $("#ticketPrice").val();
+            if (plate !== null && driverName !== null && type !== null && ticketPrice !== null && password!==null)
             {
-                $.post("Controladora1",
+                $.post("Controller1",
                         {
-                            operacion: "registrarBus",
-                            placa: placa,
-                            nombre_conductor: nombre_conductor,
-                            tipo: tipo,
-                            valor_pasaje: valor_pasaje
+                            operation: "busRegister",
+                            plate: plate,
+                            password:password,
+                            driverName: driverName,
+                            type: type,
+                            ticketPrice: ticketPrice
                         },
                         function (data)
                         {
@@ -30,7 +31,7 @@ $(function()
                                 alert("Se registro correctamente el bus");
                             } else
                             {
-                                alert("Erro al registrar bus");
+                                alert("Error al registrar bus");
                             }
                         }, "json");
             } else
