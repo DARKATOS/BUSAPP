@@ -18,20 +18,24 @@ $(document).ready(function () {
                         var idBus = data[i].id;
                         var plate = data[i].plate;
                         var driverName = data[i].driverName;
-                        var type = data[i].type;
+                        var busType = data[i].busType;
                         var ticketPrice = data[i].ticketPrice;
                         var tr = $("<tr>");
                         var td1 = $("<td>", {text: idBus});
                         var td2 = $("<td>", {text: plate});
                         var td3 = $("<td>", {text: driverName});
-                        var td4 = $("<td>", {text: type});
+                        var td4 = $("<td>", {text: busType});
                         var td5 = $("<td>", {text: ticketPrice});
-
+                        var td6 = $("<td>");
+                        var a = $("<li>", {text: "Modifcar", class:"update"});
+                        a.data("attributes",{idBus:idBus, plate: plate, driverName:driverName, type: busType, ticketPrice:ticketPrice});
+                        td6.append(a);
                         tr.append(td1);
                         tr.append(td2);
                         tr.append(td3);
                         tr.append(td4);
                         tr.append(td5);
+                        tr.append(td6);
                         tablaBuses.append(tr);
                     }
                 } else

@@ -29,7 +29,7 @@ public class CRUDBus {
             execute.setString("plate", bus.getPlate());//Tipo String
             execute.setString("password", bus.getPassword());//Tipo String
             execute.setString("driver_name", bus.getDriverName());//Tipo entero
-            execute.setString("type", bus.getType());//Tipo entero
+            execute.setString("type", bus.getbusType());//Tipo entero
             execute.setInt("ticket_price", bus.getTicketPrice());//Tipo entero
             // parametros de salida
             // Se ejecuta el procedimiento almacenado
@@ -53,10 +53,10 @@ public class CRUDBus {
                 int idbus = result.getInt("idbus");
                 String plate = result.getString("plate");
                 String driverName = result.getString("driver_name");
-                String type = result.getString("type");
+                String busType = result.getString("busType");
                 int ticketPrice = result.getInt("ticket_price");
-                System.out.println("Nombre: "+driverName);
-                Bus bus = new Bus(idbus, plate, null, driverName, type, ticketPrice);
+                System.out.println("Nombre: " + driverName);
+                Bus bus = new Bus(idbus, plate, null, driverName, busType, ticketPrice);
                 buses.add(bus);
             }
             connection.disconnect();
@@ -66,17 +66,16 @@ public class CRUDBus {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
             return null;
         }
-        
+
     }
-    
-    public Bus busLoginRegisterService(String plate, String password)
-    {
-        Bus bus=new Bus(-1, plate, password, null, null, -1);
+
+    public Bus busLoginRegisterService(String plate, String password) {
+        Bus bus = new Bus(-1, plate, password, null, null, -1);
         PrimaryConnection connection = new PrimaryConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_login_register_service(?,?)");
-            
+
             // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
             //se cargan los parametros de entrada
             execute.setString(1, bus.getPlate());//Tipo String
@@ -89,9 +88,9 @@ public class CRUDBus {
                 int idbus = result.getInt("idbus");
                 String plateR = result.getString("plate");
                 String driverName = result.getString("driver_name");
-                String type = result.getString("type");
+                String busType = result.getString("busType");
                 int ticketPrice = result.getInt("ticket_price");
-                bus=new Bus(idbus, plateR, null, driverName, type, ticketPrice);
+                bus = new Bus(idbus, plateR, null, driverName, busType, ticketPrice);
             }
             connection.disconnect();
             return bus;
@@ -99,17 +98,16 @@ public class CRUDBus {
         } catch (Exception e) {
             System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
             return null;
-        }   
+        }
     }
-    
-    public String busLoginService(int idbus, String plate)
-    {
-        Bus bus=new Bus(idbus, plate, null, null, null, -1);
+
+    public String busLoginService(int idbus, String plate) {
+        Bus bus = new Bus(idbus, plate, null, null, null, -1);
         PrimaryConnection connection = new PrimaryConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_login_service(?,?)}");
-            
+
             // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
             //se cargan los parametros de entrada
             execute.registerOutParameter(1, Types.INTEGER);
@@ -119,19 +117,16 @@ public class CRUDBus {
             // Se ejecuta el procedimiento almacenado
             execute.execute();
             int count = execute.getInt(1);
-            if (count>0)
-            {
+            if (count > 0) {
                 return "Success";
-            }
-            else
-            {
+            } else {
                 return "Failure";
             }
             // devuelve el valor del parametro de salida del procedimiento
         } catch (Exception ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
-            return "Failure: "+ex.getMessage();
-        }   
+            return "Failure: " + ex.getMessage();
+        }
     }
 
 }
