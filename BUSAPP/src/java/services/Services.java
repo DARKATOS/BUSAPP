@@ -33,7 +33,7 @@ public class Services {
 //    }
     
     @GET
-    @Path("/busLocationUpdate/{idbus}/{latitude}/{longitude}")
+    @Path("/busLocationUpdate/{idb+us}/{latitude}/{longitude}")
     @Produces(MediaType.APPLICATION_JSON)
     public String busLocationUpdate(@PathParam("idbus") int idbus, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
         return "Hola Mundo JIJIJ: ";

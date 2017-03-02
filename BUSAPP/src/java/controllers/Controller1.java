@@ -40,9 +40,9 @@ public class Controller1 extends HttpServlet {
             String plate = request.getParameter("plate");
             String password = request.getParameter("password");
             String driverName = request.getParameter("driverName");
-            String type = request.getParameter("type");
+            String busType = request.getParameter("busType");
             int ticketPrice = Integer.parseInt(request.getParameter("ticketPrice"));
-            Bus bus = new Bus(-1, plate,password, driverName, type, ticketPrice);
+            Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
             CRUDBus crud = new CRUDBus();
             boolean message = crud.busRegister(bus);
             Gson json = new Gson();

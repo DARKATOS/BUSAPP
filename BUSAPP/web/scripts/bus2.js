@@ -11,9 +11,9 @@ $(function()
             var plate = $("#plate").val();
             var password = $("#password").val();
             var driverName = $("#driverName").val();
-            var type = $("#type").val();
+            var busType = $("#busType").val();
             var ticketPrice = $("#ticketPrice").val();
-            if (plate !== null && driverName !== null && type !== null && ticketPrice !== null && password!==null)
+            if (plate !== null && driverName !== null && busType !== null && ticketPrice !== null && password!==null)
             {
                 $.post("Controller1",
                         {
@@ -21,7 +21,7 @@ $(function()
                             plate: plate,
                             password:password,
                             driverName: driverName,
-                            type: type,
+                            busType: busType,
                             ticketPrice: ticketPrice
                         },
                         function (data)

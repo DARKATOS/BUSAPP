@@ -14,15 +14,15 @@ public class Bus {
     private String plate;
     private String password;
     private String driverName;
-    private String type;
+    private String busType;
     private int ticketPrice;
 
-    public Bus(int id, String plate, String password, String driverName, String type, int ticketPrice) {
+    public Bus(int id, String plate, String password, String driverName, String busType, int ticketPrice) {
         this.id = id;
         this.plate = plate;
         this.password = password;
         this.driverName = driverName;
-        this.type = type;
+        this.busType = busType;
         this.ticketPrice = ticketPrice;
     }
 
@@ -41,8 +41,8 @@ public class Bus {
         return driverName;
     }
 
-    public String getType() {
-        return type;
+    public String getbusType() {
+        return busType;
     }
 
     public String getPassword() {
@@ -66,8 +66,8 @@ public class Bus {
         this.plate = plate;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setbusType(String busType) {
+        this.busType = busType;
     }
     
 
