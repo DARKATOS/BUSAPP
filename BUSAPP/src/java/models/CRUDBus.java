@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import javafx.animation.KeyValue;
 
 /**
  *
@@ -18,7 +17,8 @@ import javafx.animation.KeyValue;
  */
 public class CRUDBus {
 
-    public boolean busRegister(Bus bus) {
+    public boolean busRegister(String plate, String password, String driverName, String busType, int ticketPrice) {
+        Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
         PrimaryConnection connection = new PrimaryConnection();
         connection.SetConnection();
         try {
@@ -26,11 +26,11 @@ public class CRUDBus {
 
             // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
             //se cargan los parametros de entrada
-            execute.setString("plate", bus.getPlate());//Tipo String
-            execute.setString("password", bus.getPassword());//Tipo String
-            execute.setString("driver_name", bus.getDriverName());//Tipo entero
-            execute.setString("type", bus.getbusType());//Tipo entero
-            execute.setInt("ticket_price", bus.getTicketPrice());//Tipo entero
+            execute.setString(1, bus.getPlate());//Tipo String
+            execute.setString(2, bus.getPassword());//Tipo String
+            execute.setString(3, bus.getDriverName());//Tipo entero
+            execute.setString(4, bus.getbusType());//Tipo entero
+            execute.setInt(5, bus.getTicketPrice());//Tipo entero
             // parametros de salida
             // Se ejecuta el procedimiento almacenado
             execute.executeUpdate();
@@ -53,7 +53,7 @@ public class CRUDBus {
                 int idbus = result.getInt("idbus");
                 String plate = result.getString("plate");
                 String driverName = result.getString("driver_name");
-                String busType = result.getString("busType");
+                String busType = result.getString("bus_type");
                 int ticketPrice = result.getInt("ticket_price");
                 System.out.println("Nombre: " + driverName);
                 Bus bus = new Bus(idbus, plate, null, driverName, busType, ticketPrice);
@@ -67,6 +67,47 @@ public class CRUDBus {
             return null;
         }
 
+    }
+    
+    public String busPassword(int idbus)
+    {
+        Bus bus=new Bus(idbus, null, null, null, null, -1);
+        PrimaryConnection connection = new PrimaryConnection();
+        try {
+            CallableStatement execute = connection.executeCall("call bus_password(?)");
+
+            // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
+            //se cargan los parametros de entrada
+            execute.setInt(1, bus.getId());//Tipo String
+            // parametros de salida
+            // Se ejecuta el procedimiento almacenado
+            ResultSet result = execute.executeQuery();
+            String password=null;
+            while (result.next()) {
+                password = result.getString("password");
+            }
+            connection.disconnect();
+            return password;
+            // devuelve el valor del parametro de salida del procedimiento
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
+            return null;
+        }
+        
+    }
+    
+    public boolean busUpdate(String plate, String password, String passwordRepeat, String driverName, String busType, int ticketPrice)
+    {
+        if (password.equals(passwordRepeat))
+        {
+            Bus bus=new Bus(-1, plate, password, driverName, busType, ticketPrice);
+            return true;
+            
+        }
+        else
+        { 
+            return false;
+        }
     }
 
     public Bus busLoginRegisterService(String plate, String password) {
@@ -88,7 +129,7 @@ public class CRUDBus {
                 int idbus = result.getInt("idbus");
                 String plateR = result.getString("plate");
                 String driverName = result.getString("driver_name");
-                String busType = result.getString("busType");
+                String busType = result.getString("bus_type");
                 int ticketPrice = result.getInt("ticket_price");
                 bus = new Bus(idbus, plateR, null, driverName, busType, ticketPrice);
             }

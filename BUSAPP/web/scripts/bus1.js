@@ -28,7 +28,7 @@ $(document).ready(function () {
                         var td5 = $("<td>", {text: ticketPrice});
                         var td6 = $("<td>");
                         var a = $("<li>", {text: "Modifcar", class:"update"});
-                        a.data("attributes",{idBus:idBus, plate: plate, driverName:driverName, type: busType, ticketPrice:ticketPrice});
+                        a.data("attributes",{idBus:idBus, plate: plate, driverName:driverName, busType: busType, ticketPrice:ticketPrice});
                         td6.append(a);
                         tr.append(td1);
                         tr.append(td2);
@@ -45,4 +45,17 @@ $(document).ready(function () {
             }, "json");
 }
 );
+
+$(function ()
+{
+    $("#busTable").on("click", ".update", busUpdate);
+    function busUpdate()
+    {
+        var informationBus = $(".update").data("attributes");
+        var convertidos=JSON.stringify(informationBus);
+        localStorage.setItem("attributes", convertidos);
+        window.location.href="busUpdate.html";
+
+    }
+});
 

@@ -4,7 +4,7 @@ CREATE TABLE bus (
 	plate varchar(45) not null unique,
 	password varchar(45) not null,
 	driver_name varchar(45) not null,
-	type varchar(45) not null,
+	bus_type varchar(45) not null,
 	ticket_price int not null,
 	primary key (idbus)
 );
@@ -26,15 +26,15 @@ drop procedure bus_show;
 delimiter ;;
 create procedure bus_show()
 begin
-	select idbus, plate, driver_name, type, ticket_price from bus;
+	select idbus, plate, driver_name, bus_type, ticket_price from bus;
 end ;;
 delimiter ;;
 
 drop procedure bus_register;
 delimiter ;;
-create procedure bus_register(plate varchar(45), driver_name varchar(45), password varchar(45), type varchar(45), ticket_price int)
+create procedure bus_register(plate varchar(45), driver_name varchar(45), password varchar(45), bus_type varchar(45), ticket_price int)
 begin
-    insert into bus(plate,password,driver_name,type, ticket_price) values(plate, password, driver_name, type, ticket_price); 
+    insert into bus(plate,password,driver_name,bus_type, ticket_price) values(plate, password, driver_name, bus_type, ticket_price); 
 end ;;
 delimiter ;
 

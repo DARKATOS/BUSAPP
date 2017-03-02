@@ -42,20 +42,42 @@ public class Controller1 extends HttpServlet {
             String driverName = request.getParameter("driverName");
             String busType = request.getParameter("busType");
             int ticketPrice = Integer.parseInt(request.getParameter("ticketPrice"));
-            Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
             CRUDBus crud = new CRUDBus();
-            boolean message = crud.busRegister(bus);
+            boolean message = crud.busRegister(plate, password, driverName, busType, ticketPrice);
             Gson json = new Gson();
             String result = json.toJson(message);
             response.setContentType("application/json");
             response.getWriter().write(result);
         } else if ("busShow".equals(operation)) {
+            System.out.println("Hola bus");
             CRUDBus crud = new CRUDBus();
             ArrayList<Bus> buses = crud.busShow();
             Gson json = new Gson();
             String resultado = json.toJson(buses);
             response.setContentType("application/json");
             response.getWriter().write(resultado);
+        }
+        else if("busPassword".equals(operation))
+        {
+            int idbus=Integer.parseInt(request.getParameter("idbus"));
+            CRUDBus crud = new CRUDBus();
+            String password=crud.busPassword(idbus);
+            Gson json = new Gson();
+            String resultado = json.toJson(password);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("busUpdate".equals(operation))
+        {
+            String plate = request.getParameter("plate");
+            String password = request.getParameter("password");
+            String passwordRepeat = request.getParameter("passwordRepeat");
+            String driverName = request.getParameter("driverName");
+            String busType = request.getParameter("busType");
+            int ticketPrice = Integer.parseInt(request.getParameter("ticketPrice"));
+            CRUDBus crud = new CRUDBus();
+            boolean message= crud.busUpdate(plate,password,passwordRepeat,driverName,busType, ticketPrice);
+            
         }
     }
 
