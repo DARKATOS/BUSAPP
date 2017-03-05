@@ -29,14 +29,14 @@ public class CRUDBus {
             execute.setString(1, bus.getPlate());//Tipo String
             execute.setString(2, bus.getPassword());//Tipo String
             execute.setString(3, bus.getDriverName());//Tipo entero
-            execute.setString(4, bus.getbusType());//Tipo entero
+            execute.setString(4, bus.getBusType());//Tipo entero
             execute.setInt(5, bus.getTicketPrice());//Tipo entero
             // parametros de salida
             // Se ejecuta el procedimiento almacenado
             execute.executeUpdate();
             return true;
             // devuelve el valor del parametro de salida del procedimiento
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
             return false;
         }
@@ -102,11 +102,78 @@ public class CRUDBus {
         {
             Bus bus=new Bus(-1, plate, password, driverName, busType, ticketPrice);
             return true;
-            
         }
         else
         { 
             return false;
+        }
+    }
+    
+    public String busLocationRegisterService(int id)
+    {
+        Bus bus = new Bus(id, null, null, null, null, -1);
+        PrimaryConnection connection = new PrimaryConnection();
+        connection.SetConnection();
+        try {
+            CallableStatement execute = connection.executeCall("{?=call bus_location_register_service(?)}");
+            execute.registerOutParameter(1, Types.BOOLEAN);
+            execute.setInt(2, bus.getId());
+            execute.execute();
+            boolean flag = execute.getBoolean(1);
+            if (flag) {
+                return "Success";
+            } else {
+                return "Failure";
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
+            return "Failure: " + ex.getMessage();
+        }
+    }
+    
+    public String busLocationUpdateService(int id, double latitude, double longitude)
+    {
+        Bus bus = new Bus(id, null, null, null, null, -1);
+        PrimaryConnection connection = new PrimaryConnection();
+        connection.SetConnection();
+        try {
+            CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?)}");
+            execute.registerOutParameter(1, Types.BOOLEAN);
+            execute.setInt(2, bus.getId());
+            execute.setDouble(3, latitude);
+            execute.setDouble(4, longitude);
+            execute.execute();
+            boolean flag = execute.getBoolean(1);
+            if (flag) {
+                return "Success";
+            } else {
+                return "Failure";
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
+            return "Failure: " + ex.getMessage();
+        }
+    }
+    
+    public String busLocationDeleteService(int id)
+    {
+        Bus bus = new Bus(id, null, null, null, null, -1);
+        PrimaryConnection connection = new PrimaryConnection();
+        connection.SetConnection();
+        try {
+            CallableStatement execute = connection.executeCall("{?=call bus_location_delete_service(?)}");
+            execute.registerOutParameter(1, Types.BOOLEAN);
+            execute.setInt(2, bus.getId());
+            execute.execute();
+            boolean flag = execute.getBoolean(1);
+            if (flag) {
+                return "Success";
+            } else {
+                return "Failure";
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
+            return "Failure: " + ex.getMessage();
         }
     }
 
@@ -116,13 +183,8 @@ public class CRUDBus {
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_login_register_service(?,?)");
-
-            // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
-            //se cargan los parametros de entrada
             execute.setString(1, bus.getPlate());//Tipo String
             execute.setString(2, bus.getPassword());//Tipo String
-            // parametros de salida
-            // Se ejecuta el procedimiento almacenado
             ResultSet result = execute.executeQuery();
             bus = null;
             while (result.next()) {
@@ -136,14 +198,14 @@ public class CRUDBus {
             connection.disconnect();
             return bus;
             // devuelve el valor del parametro de salida del procedimiento
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
             return null;
         }
     }
 
-    public String busLoginService(int idbus, String plate) {
-        Bus bus = new Bus(idbus, plate, null, null, null, -1);
+    public String busLoginService(int id, String plate) {
+        Bus bus = new Bus(id, plate, null, null, null, -1);
         PrimaryConnection connection = new PrimaryConnection();
         connection.SetConnection();
         try {
@@ -164,7 +226,7 @@ public class CRUDBus {
                 return "Failure";
             }
             // devuelve el valor del parametro de salida del procedimiento
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
             return "Failure: " + ex.getMessage();
         }

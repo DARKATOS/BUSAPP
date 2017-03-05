@@ -41,9 +41,11 @@ public class Bus {
         return driverName;
     }
 
-    public String getbusType() {
+    public String getBusType() {
         return busType;
     }
+
+
 
     public String getPassword() {
         return password;
@@ -66,9 +68,10 @@ public class Bus {
         this.plate = plate;
     }
 
-    public void setbusType(String busType) {
+    public void setBusType(String busType) {
         this.busType = busType;
     }
+    
     
 
     public void setTicketPrice(int ticketPrice) {
