@@ -39,9 +39,9 @@ public class Services {
     }
     
     @GET
-    @Path("/busLocationRegister/{id}/{plate}")
+    @Path("/busLocationRegister/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLocationRegister(@PathParam("id") int id, @PathParam("plate") double plate) {
+    public String busLocationRegister(@PathParam("id") int id) {
         CRUDBus crud=new CRUDBus();
         String success=crud.busLocationRegisterService(id);
         return success;
@@ -52,7 +52,7 @@ public class Services {
     @Produces(MediaType.APPLICATION_JSON)
     public String busLocationUpdate(@PathParam("id") int id, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
         CRUDBus crud=new CRUDBus();
-        String success=crud.busLocationUpdateService(id, latitude, latitude);
+        String success=crud.busLocationUpdateService(id, latitude, longitude);
         return success;
     }
     

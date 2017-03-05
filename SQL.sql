@@ -76,9 +76,9 @@ create function bus_location_register_service(idbusp integer)
 returns boolean
 begin
 	declare conteo integer;
-    select count(idbus_location) into conteo from bus_location where bus_idbus=idbusp;
+    select count(bus_idbus) into conteo from bus_location where bus_idbus=idbusp;
     if conteo<=0 then
-		insert into bus_location values(default, 5.067518914980187,-75.51735877990723);
+		insert into bus_location values(default, 5.067518914980187,-75.51735877990723, idbusp);
 	end if;
 	return true;
 end ;;
@@ -86,7 +86,7 @@ delimiter ;;
 
 drop function bus_location_update_service;
 delimiter ;;
-create function bus_location_update_service(idbusp integer, latitudep integer, longitude integer)
+create function bus_location_update_service(idbusp integer, latitudep double, longitudep double)
 returns boolean
 begin
 	update bus_location set latitude=latitudep, longitude=longitudep where bus_idbus=idbusp;

@@ -137,7 +137,7 @@ public class CRUDBus {
         PrimaryConnection connection = new PrimaryConnection();
         connection.SetConnection();
         try {
-            CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?)}");
+            CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?,?,?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
             execute.setInt(2, bus.getId());
             execute.setDouble(3, latitude);
