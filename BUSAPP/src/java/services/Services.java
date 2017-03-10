@@ -18,33 +18,12 @@ import models.CRUDBus;
 @Path("/services")
 public class Services {
     
-//    @GET
-//    @Path("/stringXML")
-//    @Produces(MediaType.TEXT_XML)
-//    public String stringXML() {
-//        return "<?xml version='1.0' encoding='UTF-8'?><hola>Hola Mundo</hola>";
-//    }
-//
-//    @GET
-//    @Path("/stringJSON/{parameter}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String stringJSON(@PathParam("parameter") int msg) {
-//        return "Hola Mundo JIJIJ: "+msg;
-//    }
-    
     @GET
-    @Path("/busLocationUpdate/{idb+us}/{latitude}/{longitude}")
+    @Path("/busLogIn/{id}/{plate}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLocationUpdate(@PathParam("idbus") int idbus, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
-        return "Hola Mundo JIJIJ: ";
-    }
-    
-    @GET
-    @Path("/busLogIn/{idbus}/{plate}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String busLogIn(@PathParam("idbus") int idbus, @PathParam("plate") String plate) {
+    public String busLogIn(@PathParam("id") int id, @PathParam("plate") String plate) {
         CRUDBus crud=new CRUDBus();
-        String success=crud.busLoginService(idbus,plate);
+        String success=crud.busLoginService(id,plate);
         return success;
     }
     
@@ -57,5 +36,32 @@ public class Services {
         Gson json=new Gson();
         String result=json.toJson(bus);
         return result;
+    }
+    
+    @GET
+    @Path("/busLocationRegister/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busLocationRegister(@PathParam("id") int id) {
+        CRUDBus crud=new CRUDBus();
+        String success=crud.busLocationRegisterService(id);
+        return success;
+    }
+    
+    @GET
+    @Path("/busLocationUpdate/{id}/{latitude}/{longitude}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busLocationUpdate(@PathParam("id") int id, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
+        CRUDBus crud=new CRUDBus();
+        String success=crud.busLocationUpdateService(id, latitude, longitude);
+        return success;
+    }
+    
+    @GET
+    @Path("/busLocationDelete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busLocationDelete(@PathParam("id") int id) {
+        CRUDBus crud=new CRUDBus();
+        String success=crud.busLocationDeleteService(id);
+        return success;
     }
 }
