@@ -16,7 +16,16 @@ import java.util.ArrayList;
  * @author NIYIRETH_OSORIO
  */
 public class CRUDBus {
-
+    
+    /**
+     * bus Register: Metodo que permite el registro de un bus desde al aplicación de servidor.
+     * @param plate Es la placa del bus.
+     * @param password Contraseña con la que el conductor del bus puede acceder a la aplicacion BUSAPP
+     * @param driverName Nombre del conductor con el que esta relacionado el bus.
+     * @param busType Tipo de bus (básico, ejecutivo o especial).
+     * @param ticketPrice Precio del pasaje del bus.
+     * @return True si se realizo correctamente el registro. False si hubo un error al registrar el bus.
+     */
     public boolean busRegister(String plate, String password, String driverName, String busType, int ticketPrice) {
         Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
         PrimaryConnection connection = new PrimaryConnection();
@@ -41,7 +50,11 @@ public class CRUDBus {
             return false;
         }
     }
-
+    
+    /**
+     * bus Show: Permite la visualización de los buses registrados en la aplicación del servidor.
+     * @return ArrayList<Bus> retorna un lista de buses si se hizo la consulta correctamente. o null si hubo un error.
+     */
     public ArrayList<Bus> busShow() {
         try {
             PrimaryConnection connection = new PrimaryConnection();
@@ -69,6 +82,11 @@ public class CRUDBus {
 
     }
     
+    /**
+     * bus password: Metodo que permite obtener el password de alguna de las cuentas de los buses.
+     * @param idbus Es la identificación del bus dentro de la base de datos del servidor.
+     * @return String que es password de la cuenta del bus.
+     */
     public String busPassword(int idbus)
     {
         Bus bus=new Bus(idbus, null, null, null, null, -1);
@@ -96,6 +114,17 @@ public class CRUDBus {
         
     }
     
+    
+    /**
+     * bus update: Metodo que permite la actualización de todos los datos de un bus.
+     * @param plate Placa del bus.
+     * @param password Contraseña de la cuenta del bus.
+     * @param passwordRepeat Repetición de la contraseña que debe coincidir con el parametro password.
+     * @param driverName Nombre del conductor del bus.
+     * @param busType Tipo de bus (básico, ejecutivo o especial).
+     * @param ticketPrice Precio del pasaje del bus.
+     * @return True si se realizo correctamente la actualización de datos. False si hubo un error en la actualización de datos.
+     */
     public boolean busUpdate(String plate, String password, String passwordRepeat, String driverName, String busType, int ticketPrice)
     {
         if (password.equals(passwordRepeat))
@@ -109,6 +138,11 @@ public class CRUDBus {
         }
     }
     
+    /**
+     * bus location register service: Servicio para recibir y registrar la primera ubicación del bus, Con esto se considera activo dentro del sistema BUSAPP, Este servicio es consumido desde la aplicacion BusesBUSAPP
+     * @param id identificador del bus en el sistema.
+     * @return String informando si se realizo correctamente el registro de la ubicación del bus.
+     */
     public String busLocationRegisterService(int id)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
@@ -131,6 +165,13 @@ public class CRUDBus {
         }
     }
     
+    /**
+     * bus location update service: Servicio que permite la actualización de la ubicación del bus segun su recorrido, este servicio es consumido desde laaplicación BusesBUSAPP.
+     * @param id Identificador del bus en el sistema. 
+     * @param latitude Nueva latitud que tiene el bus.
+     * @param longitude Nueva longitud que tiene el bus.
+     * @return String si se realizo correctamente la actualización de la ubicación del bus.
+     */
     public String busLocationUpdateService(int id, double latitude, double longitude)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
@@ -155,6 +196,11 @@ public class CRUDBus {
         }
     }
     
+    /**
+     * bus location delete service: Servicio que permite eliminar la ubicación de un bus, se consume el servicio cuando el usuario se ha salido de la aplicación BusesBUSAPP.
+     * @param id Identificador del bus en el sistema.
+     * @return String indicando si se realizo correctamente el borrado de la ubicacion del bus.
+     */
     public String busLocationDeleteService(int id)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
@@ -177,6 +223,12 @@ public class CRUDBus {
         }
     }
 
+    /**
+     * bus login register service: Servicio que permite el inicio de sesión de un bus y retorna los datos para guardar la sesión en un archivo de configuración en la aplicación BusesBUSAPP, este servicio es consumido desde la aplicación BusesBUSAPP. 
+     * @param plate Placa del bus.
+     * @param password Contraseña de la cuenta del bus.
+     * @return Bus con los datos del bus que ha iniciado sesión. null si no se encontro el bus en el sistema.
+     */
     public Bus busLoginRegisterService(String plate, String password) {
         Bus bus = new Bus(-1, plate, password, null, null, -1);
         PrimaryConnection connection = new PrimaryConnection();
@@ -204,6 +256,12 @@ public class CRUDBus {
         }
     }
 
+    /**
+     * bus login service; Servicio que permite el inicio de sesión de un bus a traves de los datos almacenados en un archivo de configuración de la aplicación BusesBUSAPP, el servicio es consumido desde la aplicación BusesBUSAPP.
+     * @param id Identificador del bus en el sistema.
+     * @param plate Placa del bus.
+     * @return String indicando si fue posible el inicio de sesión.
+     */
     public String busLoginService(int id, String plate) {
         Bus bus = new Bus(id, plate, null, null, null, -1);
         PrimaryConnection connection = new PrimaryConnection();

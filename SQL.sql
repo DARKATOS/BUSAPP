@@ -14,7 +14,6 @@ create table bus_location(
 	idbus_location int not null auto_increment,
     latitude double not null,
     longitude double not null,
-    state boolean not null,
     bus_idbus int not null,
     primary key (idbus_location)
 );
@@ -37,19 +36,6 @@ begin
     insert into bus(plate,password,driver_name,bus_type, ticket_price) values(plate, password, driver_name, bus_type, ticket_price); 
 end ;;
 delimiter ;
-
-drop procedure bus_location_update;
-delimiter ;;
-create procedure bus_location_update(latitude double, longitude double, bus_idbus integer)
-begin
-	declare conteo integer;
-	select count(idbus) into conteo from bus where idbus=bus_idbus;
-    if conteo>0 then
-		update bus_location set latitude=latitude,longitude=longitude where bus_idbus=bus_idbus;
-	else
-		insert into bus_location(latitude,longitude,state,bus_idbus) values(latitude,longitude,true,bus_idbus);
-	end if;
-end ;;
 
 drop procedure bus_login_register_service;
 delimiter ;;
@@ -104,9 +90,17 @@ begin
 end ;;
 delimiter ;;
 
+drop procedure bus_update_get_service;
+delimiter ;;
+create procedure bus_update_get_service()
+begin
+	select * from bus_location;
+end ;;
+delimiter ;;
+
 drop procedure bus_password;
 delimiter ;;
-create procedure bus_login_service(idbusp varchar(45))
+create procedure bus_password(idbusp varchar(45))
 begin
 	select password from bus where idbus=idbusp;
 end ;;
