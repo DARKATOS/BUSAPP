@@ -10,10 +10,13 @@ package services;
  * @author JORGE_ALEJANDRO
  */
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import models.Bus;
 import models.CRUDBus;
+import models.CRUDLocation;
+import models.Location;
 
 @Path("/services")
 public class Services {
@@ -63,5 +66,16 @@ public class Services {
         CRUDBus crud=new CRUDBus();
         String success=crud.busLocationDeleteService(id);
         return success;
+    }
+    
+    @GET
+    @Path("/busUpdateGet")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busUpdateGet() {
+        CRUDLocation crud=new CRUDLocation();
+        ArrayList<Location>locations=crud.busUpdateGetService();
+        Gson json=new Gson();
+        String result=json.toJson(locations);
+        return result;
     }
 }
