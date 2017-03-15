@@ -28,7 +28,7 @@ public class CRUDBus {
      */
     public boolean busRegister(String plate, String password, String driverName, String busType, int ticketPrice) {
         Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_register(?,?,?,?,?)");
@@ -57,7 +57,7 @@ public class CRUDBus {
      */
     public ArrayList<Bus> busShow() {
         try {
-            PrimaryConnection connection = new PrimaryConnection();
+            EnableConnection connection = new EnableConnection();
             ArrayList<Bus> buses = new ArrayList();
             connection.SetConnection();
             ResultSet result = connection.executeQuery("call bus_show()");
@@ -90,7 +90,7 @@ public class CRUDBus {
     public String busPassword(int idbus)
     {
         Bus bus=new Bus(idbus, null, null, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_password(?)");
 
@@ -146,7 +146,7 @@ public class CRUDBus {
     public String busLocationRegisterService(int id)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_register_service(?)}");
@@ -175,7 +175,7 @@ public class CRUDBus {
     public String busLocationUpdateService(int id, double latitude, double longitude)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?,?,?)}");
@@ -204,7 +204,7 @@ public class CRUDBus {
     public String busLocationDeleteService(int id)
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_delete_service(?)}");
@@ -231,7 +231,7 @@ public class CRUDBus {
      */
     public Bus busLoginRegisterService(String plate, String password) {
         Bus bus = new Bus(-1, plate, password, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_login_register_service(?,?)");
@@ -264,7 +264,7 @@ public class CRUDBus {
      */
     public String busLoginService(int id, String plate) {
         Bus bus = new Bus(id, plate, null, null, null, -1);
-        PrimaryConnection connection = new PrimaryConnection();
+        EnableConnection connection = new EnableConnection();
         connection.SetConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_login_service(?,?)}");

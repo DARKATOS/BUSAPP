@@ -22,7 +22,7 @@ public class CRUDLocation {
     public ArrayList<Location> busUpdateGetService()
     {
         try {
-            PrimaryConnection connection = new PrimaryConnection();
+            EnableConnection connection = new EnableConnection();
             ArrayList<Location> locations = new ArrayList();
             connection.SetConnection();
             ResultSet result = connection.executeQuery("call bus_update_get_service()");
