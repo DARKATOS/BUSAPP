@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author NIYIRETH_OSORIO
  */
-public class PrimaryConnection {
+public class EnableConnection {
     private final String url = "jdbc:mysql://localhost:3306/busapp";
     private final String user = "root";
     private final String password = "";
