@@ -24,7 +24,7 @@ public class CRUDLocation {
         try {
             EnableConnection connection = new EnableConnection();
             ArrayList<Location> locations = new ArrayList();
-            connection.SetConnection();
+            connection.setConnection();
             ResultSet result = connection.executeQuery("call bus_update_get_service()");
 
             while (result.next()) {

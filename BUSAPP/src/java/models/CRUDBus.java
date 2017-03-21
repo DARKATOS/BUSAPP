@@ -29,7 +29,7 @@ public class CRUDBus {
     public boolean busRegister(String plate, String password, String driverName, String busType, int ticketPrice) {
         Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_register(?,?,?,?,?)");
 
@@ -59,7 +59,7 @@ public class CRUDBus {
         try {
             EnableConnection connection = new EnableConnection();
             ArrayList<Bus> buses = new ArrayList();
-            connection.SetConnection();
+            connection.setConnection();
             ResultSet result = connection.executeQuery("call bus_show()");
 
             while (result.next()) {
@@ -147,7 +147,7 @@ public class CRUDBus {
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_register_service(?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -176,7 +176,7 @@ public class CRUDBus {
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?,?,?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -205,7 +205,7 @@ public class CRUDBus {
     {
         Bus bus = new Bus(id, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_delete_service(?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -232,7 +232,7 @@ public class CRUDBus {
     public Bus busLoginRegisterService(String plate, String password) {
         Bus bus = new Bus(-1, plate, password, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_login_register_service(?,?)");
             execute.setString(1, bus.getPlate());//Tipo String
@@ -265,7 +265,7 @@ public class CRUDBus {
     public String busLoginService(int id, String plate) {
         Bus bus = new Bus(id, plate, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_login_service(?,?)}");
 
