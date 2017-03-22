@@ -33,7 +33,7 @@ drop procedure bus_register;
 delimiter ;;
 create procedure bus_register(plate varchar(45), driver_name varchar(45), password varchar(45), bus_type varchar(45), ticket_price int)
 begin
-    insert into bus(plate,password,driver_name,bus_type, ticket_price) values(plate, password, driver_name, bus_type, ticket_price); 
+    insert into bus(plate,password,driver_name,bus_type, ticket_price) values(plate, bus_password, driver_name, bus_type, ticket_price); 
 end ;;
 delimiter ;
 
@@ -100,8 +100,18 @@ delimiter ;;
 
 drop procedure bus_password;
 delimiter ;;
-create procedure bus_password(idbusp varchar(45))
+create procedure bus_password(idbusp integer)
 begin
 	select password from bus where idbus=idbusp;
 end ;;
 delimiter ;;
+
+
+drop procedure bus_update;
+delimiter ;;
+create procedure bus_update(idbusp integer(45), passwordp varchar(45), driver_namep varchar(45), bus_typep varchar(45), ticket_pricep int)
+begin
+    update bus set password=passwordp,driver_name=driver_namep,bus_type=bus_typep, ticket_price=ticket_pricep
+    where idbus=idbusp;
+end ;;
+delimiter ;

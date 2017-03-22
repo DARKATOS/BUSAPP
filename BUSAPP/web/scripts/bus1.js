@@ -27,8 +27,8 @@ $(document).ready(function () {
                         var td4 = $("<td>", {text: busType});
                         var td5 = $("<td>", {text: ticketPrice});
                         var td6 = $("<td>");
-                        var a = $("<li>", {text: "Modifcar", class:"update"});
-                        a.data("attributes",{idBus:idBus, plate: plate, driverName:driverName, busType: busType, ticketPrice:ticketPrice});
+                        var a = $("<li>", {text: "Modifcar", class: "update"});
+                        a.data("attributes", {idBus: idBus, plate: plate, driverName: driverName, busType: busType, ticketPrice: ticketPrice});
                         td6.append(a);
                         tr.append(td1);
                         tr.append(td2);
@@ -51,10 +51,10 @@ $(function ()
     $("#busTable").on("click", ".update", busUpdate);
     function busUpdate()
     {
-        var informationBus = $(".update").data("attributes");
-        var convertidos=JSON.stringify(informationBus);
+        var informationBus = $(this).data("attributes");
+        var convertidos = JSON.stringify(informationBus);
         localStorage.setItem("attributes", convertidos);
-        window.location.href="busUpdate.html";
+        window.location.href = "busUpdate.html";
 
     }
 });
