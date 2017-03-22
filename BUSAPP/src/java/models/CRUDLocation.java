@@ -19,11 +19,11 @@ public class CRUDLocation {
      * bus update get service: Servicio que permite obtener las actualización de ubicacion de los buses registrados y conectados al sistema, Servicio consumido desde la aplicación UsuariosBUSAPP.
      * @return ArrayList<Location> ubicaciones de los buses. Null si hubo error al obtener las ubicaciones.
      */
-    public ArrayList<Location> busUpdateGetService()
+    public ArrayList<BusLocation> busUpdateGetService()
     {
         try {
             EnableConnection connection = new EnableConnection();
-            ArrayList<Location> locations = new ArrayList();
+            ArrayList<BusLocation> locations = new ArrayList();
             connection.setConnection();
             ResultSet result = connection.executeQuery("call bus_update_get_service()");
 
@@ -33,7 +33,7 @@ public class CRUDLocation {
                 double longitude = result.getDouble("longitude");
                 int idbus = result.getInt("bus_idbus");
                 Bus bus= new Bus(idbus, null, null, null, null,-1);
-                Location location= new Location(id, latitude, longitude, bus);
+                BusLocation location= new BusLocation(id, latitude, longitude, bus);
                 locations.add(location);
             }
             connection.disconnect();

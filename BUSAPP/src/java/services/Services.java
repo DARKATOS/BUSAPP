@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import models.Bus;
 import models.CRUDBus;
 import models.CRUDLocation;
-import models.Location;
+import models.BusLocation;
 
 @Path("/services")
 public class Services {
@@ -73,7 +73,7 @@ public class Services {
     @Produces(MediaType.APPLICATION_JSON)
     public String busUpdateGet() {
         CRUDLocation crud=new CRUDLocation();
-        ArrayList<Location>locations=crud.busUpdateGetService();
+        ArrayList<BusLocation>locations=crud.busUpdateGetService();
         Gson json=new Gson();
         String result=json.toJson(locations);
         return result;
