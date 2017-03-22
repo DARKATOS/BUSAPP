@@ -23,7 +23,7 @@ public class EnableConnection {
     private Connection connection;
     private CallableStatement fop;
 
-    public void SetConnection() {
+    public void setConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password); // getting Statement object to execute query

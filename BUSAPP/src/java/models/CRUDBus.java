@@ -29,7 +29,7 @@ public class CRUDBus {
     public boolean busRegister(String plate, String password, String driverName, String busType, int ticketPrice) {
         Bus bus = new Bus(-1, plate,password, driverName, busType, ticketPrice);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_register(?,?,?,?,?)");
 
@@ -59,7 +59,7 @@ public class CRUDBus {
         try {
             EnableConnection connection = new EnableConnection();
             ArrayList<Bus> buses = new ArrayList();
-            connection.SetConnection();
+            connection.setConnection();
             ResultSet result = connection.executeQuery("call bus_show()");
 
             while (result.next()) {
@@ -140,14 +140,14 @@ public class CRUDBus {
     
     /**
      * bus location register service: Servicio para recibir y registrar la primera ubicación del bus, Con esto se considera activo dentro del sistema BUSAPP, Este servicio es consumido desde la aplicacion BusesBUSAPP
-     * @param id identificador del bus en el sistema.
+     * @param idbus identificador del bus en el sistema.
      * @return String informando si se realizo correctamente el registro de la ubicación del bus.
      */
-    public String busLocationRegisterService(int id)
+    public String busLocationRegisterService(int idbus)
     {
-        Bus bus = new Bus(id, null, null, null, null, -1);
+        Bus bus = new Bus(idbus, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_register_service(?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -167,16 +167,16 @@ public class CRUDBus {
     
     /**
      * bus location update service: Servicio que permite la actualización de la ubicación del bus segun su recorrido, este servicio es consumido desde laaplicación BusesBUSAPP.
-     * @param id Identificador del bus en el sistema. 
+     * @param idbus Identificador del bus en el sistema. 
      * @param latitude Nueva latitud que tiene el bus.
      * @param longitude Nueva longitud que tiene el bus.
      * @return String si se realizo correctamente la actualización de la ubicación del bus.
      */
-    public String busLocationUpdateService(int id, double latitude, double longitude)
+    public String busLocationUpdateService(int idbus, double latitude, double longitude)
     {
-        Bus bus = new Bus(id, null, null, null, null, -1);
+        Bus bus = new Bus(idbus, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?,?,?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -198,14 +198,14 @@ public class CRUDBus {
     
     /**
      * bus location delete service: Servicio que permite eliminar la ubicación de un bus, se consume el servicio cuando el usuario se ha salido de la aplicación BusesBUSAPP.
-     * @param id Identificador del bus en el sistema.
+     * @param idbus Identificador del bus en el sistema.
      * @return String indicando si se realizo correctamente el borrado de la ubicacion del bus.
      */
-    public String busLocationDeleteService(int id)
+    public String busLocationDeleteService(int idbus)
     {
-        Bus bus = new Bus(id, null, null, null, null, -1);
+        Bus bus = new Bus(idbus, null, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_location_delete_service(?)}");
             execute.registerOutParameter(1, Types.BOOLEAN);
@@ -232,7 +232,7 @@ public class CRUDBus {
     public Bus busLoginRegisterService(String plate, String password) {
         Bus bus = new Bus(-1, plate, password, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("call bus_login_register_service(?,?)");
             execute.setString(1, bus.getPlate());//Tipo String
@@ -258,14 +258,14 @@ public class CRUDBus {
 
     /**
      * bus login service; Servicio que permite el inicio de sesión de un bus a traves de los datos almacenados en un archivo de configuración de la aplicación BusesBUSAPP, el servicio es consumido desde la aplicación BusesBUSAPP.
-     * @param id Identificador del bus en el sistema.
+     * @param idbus Identificador del bus en el sistema.
      * @param plate Placa del bus.
      * @return String indicando si fue posible el inicio de sesión.
      */
-    public String busLoginService(int id, String plate) {
-        Bus bus = new Bus(id, plate, null, null, null, -1);
+    public String busLoginService(int idbus, String plate) {
+        Bus bus = new Bus(idbus, plate, null, null, null, -1);
         EnableConnection connection = new EnableConnection();
-        connection.SetConnection();
+        connection.setConnection();
         try {
             CallableStatement execute = connection.executeCall("{?=call bus_login_service(?,?)}");
 
