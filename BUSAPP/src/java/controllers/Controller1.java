@@ -36,6 +36,7 @@ public class Controller1 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String operation = request.getParameter("operation");
+        
         if ("busRegister".equals(operation)) {
             String plate = request.getParameter("plate");
             String password = request.getParameter("password");
@@ -48,7 +49,8 @@ public class Controller1 extends HttpServlet {
             String result = json.toJson(message);
             response.setContentType("application/json");
             response.getWriter().write(result);
-        } else if ("busShow".equals(operation)) {
+        }
+        else if ("busShow".equals(operation)) {
             System.out.println("Hola bus");
             CRUDBus crud = new CRUDBus();
             ArrayList<Bus> buses = crud.busShow();
@@ -69,15 +71,18 @@ public class Controller1 extends HttpServlet {
         }
         else if("busUpdate".equals(operation))
         {
-            String plate = request.getParameter("plate");
+            int idbus= Integer.parseInt(request.getParameter("idbus"));
             String password = request.getParameter("password");
             String passwordRepeat = request.getParameter("passwordRepeat");
             String driverName = request.getParameter("driverName");
             String busType = request.getParameter("busType");
             int ticketPrice = Integer.parseInt(request.getParameter("ticketPrice"));
             CRUDBus crud = new CRUDBus();
-            boolean message= crud.busUpdate(plate,password,passwordRepeat,driverName,busType, ticketPrice);
-            
+            boolean message= crud.busUpdate(idbus,password,passwordRepeat,driverName,busType, ticketPrice);
+            Gson json = new Gson();
+            String result = json.toJson(message);
+            response.setContentType("application/json");
+            response.getWriter().write(result);
         }
     }
 
