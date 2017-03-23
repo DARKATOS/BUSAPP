@@ -84,6 +84,17 @@ public class Controller1 extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().write(result);
         }
+        
+        else if("busDelete".equals(operation))
+        {
+            int idbus=Integer.parseInt(request.getParameter("idbus"));
+            CRUDBus crud = new CRUDBus();
+            boolean message=crud.busDelete(idbus);
+            Gson json = new Gson();
+            String resultado = json.toJson(message);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
