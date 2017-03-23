@@ -31,5 +31,37 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
+
+        <div class="modal fade busDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="busDelete">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <center><h4 class="modal-title" id="busDelete">Eliminar bus</h4></center>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-2"></div>
+                            <div class="col-xs-8">
+
+                                <h3>¿Está seguro que quiere eliminar el bus?</h3>
+                                <span>Identificador del bus:</span>
+                                <span id="idDelete"></span>
+                                <br>
+                                <span>Placa del bus:</span>
+                                <span id="plateDelete"></span>
+                            </div>
+                            <div class="col-xs-2"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button id="deleteAccept" type="button" class="btn btn-primary" >Aceptar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
     </body>
 </html>

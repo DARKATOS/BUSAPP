@@ -27,9 +27,18 @@ $(document).ready(function () {
                         var td4 = $("<td>", {text: busType});
                         var td5 = $("<td>", {text: ticketPrice});
                         var td6 = $("<td>");
-                        var a = $("<li>", {text: "Modifcar", class: "update"});
-                        a.data("attributes", {idBus: idBus, plate: plate, driverName: driverName, busType: busType, ticketPrice: ticketPrice});
-                        td6.append(a);
+                        var a1 = $("<li>", {text: "Modifcar", class: "update"});
+                        a1.data("attributes", {idBus: idBus, plate: plate, driverName: driverName, busType: busType, ticketPrice: ticketPrice});
+
+                        var br = $("<br>");
+                        var a2 = $("<li>", {text: "Eliminar", class: "delete"});
+                        a2.attr("data-toggle", "modal");
+                        a2.attr("data-target", ".busDeleteConfirm");
+
+                        a2.data("attributes", {idBus: idBus, plate: plate});
+                        td6.append(a1);
+                        td6.append(br);
+                        td6.append(a2);
                         tr.append(td1);
                         tr.append(td2);
                         tr.append(td3);
@@ -57,5 +66,35 @@ $(function ()
         window.location.href = "busUpdate.html";
 
     }
+    $("#busTable").on("click", ".delete", busDelete);
+    function busDelete()
+    {
+        var informationBus = $(this).data("attributes");
+        $("#idDelete").text(informationBus.idBus);
+        $("#plateDelete").text(informationBus.plate);
+    }
+
+    $("#deleteAccept").on("click", busDeleteConfirm);
+    function busDeleteConfirm()
+    {
+        var idBus = $("#idDelete").text();
+        $.post("Controller1",
+                {
+                    operation: "busDelete",
+                    idbus: idBus
+                },
+                function (data)
+                {
+                    if (data)
+                    {
+                        window.location.href = "busShow.html";
+                    } else
+                    {
+                        alert("Error al eliminar bus");
+                    }
+                }, "json");
+
+    }
+
 });
 

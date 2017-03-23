@@ -175,6 +175,31 @@ public class CRUDBus {
             return false;
         }
     }
+    public boolean busDelete(int id) {
+        try {
+            Bus bus = new Bus(id, null, null, null, null, -1);
+            EnableConnection connection = new EnableConnection();
+            connection.setConnection();
+
+            if (id!= 0) {
+                CallableStatement execute = connection.executeCall("call bus_delete(?)");
+
+                // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
+                //se cargan los parametros de entrada
+                execute.setInt(1, bus.getId());//Tipo int
+                // Se ejecuta el procedimiento almacenado
+                execute.executeUpdate();
+                return true;
+                // devuelve el valor del parametro de salida del procedimiento
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar el procedimiento: " + e.getMessage());
+            return false;
+        }
+    }
 
     /**
      * bus location register service: Servicio para recibir y registrar la

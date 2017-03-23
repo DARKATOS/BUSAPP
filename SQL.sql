@@ -109,9 +109,19 @@ delimiter ;;
 
 drop procedure bus_update;
 delimiter ;;
-create procedure bus_update(idbusp integer(45), passwordp varchar(45), driver_namep varchar(45), bus_typep varchar(45), ticket_pricep int)
+create procedure bus_update(idbusp integer, passwordp varchar(45), driver_namep varchar(45), bus_typep varchar(45), ticket_pricep int)
 begin
     update bus set password=passwordp,driver_name=driver_namep,bus_type=bus_typep, ticket_price=ticket_pricep
     where idbus=idbusp;
 end ;;
 delimiter ;
+
+
+drop procedure bus_delete;
+delimiter ;;
+create procedure bus_delete(idbusp integer)
+begin
+     DELETE FROM bus where idbus =idbusp;
+end ;;
+delimiter ;
+
