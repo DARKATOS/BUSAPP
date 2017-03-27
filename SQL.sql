@@ -121,7 +121,7 @@ drop procedure bus_delete;
 delimiter ;;
 create procedure bus_delete(idbusp integer)
 begin
-     DELETE FROM bus where idbus =idbusp;
+     delete from bus where idbus =idbusp;
 end ;;
 delimiter ;
 
