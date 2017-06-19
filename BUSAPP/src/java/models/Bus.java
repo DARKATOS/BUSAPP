@@ -26,6 +26,15 @@ public class Bus {
         this.ticketPrice = ticketPrice;
     }
 
+    public Bus(int id) {
+        this.id = id;
+        this.plate = null;
+        this.password = null;
+        this.driverName = null;
+        this.busType = null;
+        this.ticketPrice = -1;
+    }
+
     
     
     public int getId() {

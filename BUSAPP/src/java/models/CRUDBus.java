@@ -103,13 +103,12 @@ public class CRUDBus {
      * @return String que es password de la cuenta del bus.
      */
     public String busPassword(int idbus) {
-        Bus bus = new Bus(idbus, null, null, null, null, -1);
+        Bus bus = new Bus(idbus);
         EnableConnection connection = new EnableConnection();
         connection.setConnection();
-        System.out.println("id del bbus :"+idbus);
+        System.out.println("id del bbus :" + idbus);
         try {
             CallableStatement execute = connection.executeCall("call bus_password(?)");
-
             // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
             //se cargan los parametros de entrada
             execute.setInt(1, bus.getId());//Tipo String
@@ -175,15 +174,14 @@ public class CRUDBus {
             return false;
         }
     }
+
     public boolean busDelete(int id) {
         try {
-            Bus bus = new Bus(id, null, null, null, null, -1);
+            Bus bus = new Bus(id);
             EnableConnection connection = new EnableConnection();
             connection.setConnection();
-
-            if (id!= 0) {
+            if (id != 0) {
                 CallableStatement execute = connection.executeCall("call bus_delete(?)");
-
                 // se crea instancia a procedimiento, los parametros de entrada y salida se simbolizan con el signo ?
                 //se cargan los parametros de entrada
                 execute.setInt(1, bus.getId());//Tipo int
@@ -212,20 +210,15 @@ public class CRUDBus {
      * ubicación del bus.
      */
     public String busLocationRegisterService(int idbus) {
-        Bus bus = new Bus(idbus, null, null, null, null, -1);
+        Bus bus = new Bus(idbus);
         EnableConnection connection = new EnableConnection();
         connection.setConnection();
         try {
-            CallableStatement execute = connection.executeCall("{?=call bus_location_register_service(?)}");
+            CallableStatement execute = connection.executeCall("call bus_location_register_service(?)");
             execute.registerOutParameter(1, Types.BOOLEAN);
             execute.setInt(2, bus.getId());
             execute.execute();
-            boolean flag = execute.getBoolean(1);
-            if (flag) {
-                return "Success";
-            } else {
-                return "Failure";
-            }
+            return "Success";
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
             return "Failure: " + ex.getMessage();
@@ -244,22 +237,17 @@ public class CRUDBus {
      * ubicación del bus.
      */
     public String busLocationUpdateService(int idbus, double latitude, double longitude) {
-        Bus bus = new Bus(idbus, null, null, null, null, -1);
+        Bus bus = new Bus(idbus);
         EnableConnection connection = new EnableConnection();
         connection.setConnection();
         try {
-            CallableStatement execute = connection.executeCall("{?=call bus_location_update_service(?,?,?)}");
+            CallableStatement execute = connection.executeCall("call bus_location_update_service(?,?,?)");
             execute.registerOutParameter(1, Types.BOOLEAN);
             execute.setInt(2, bus.getId());
             execute.setDouble(3, latitude);
             execute.setDouble(4, longitude);
             execute.execute();
-            boolean flag = execute.getBoolean(1);
-            if (flag) {
-                return "Success";
-            } else {
-                return "Failure";
-            }
+            return "Success";
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
             return "Failure: " + ex.getMessage();
@@ -276,20 +264,15 @@ public class CRUDBus {
      * ubicacion del bus.
      */
     public String busLocationDeleteService(int idbus) {
-        Bus bus = new Bus(idbus, null, null, null, null, -1);
+        Bus bus = new Bus(idbus);
         EnableConnection connection = new EnableConnection();
         connection.setConnection();
         try {
-            CallableStatement execute = connection.executeCall("{?=call bus_location_delete_service(?)}");
+            CallableStatement execute = connection.executeCall("call bus_location_delete_service(?)");
             execute.registerOutParameter(1, Types.BOOLEAN);
             execute.setInt(2, bus.getId());
             execute.execute();
-            boolean flag = execute.getBoolean(1);
-            if (flag) {
-                return "Success";
-            } else {
-                return "Failure";
-            }
+            return "Success";
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar el procedimiento: " + ex.getMessage());
             return "Failure: " + ex.getMessage();
@@ -371,5 +354,4 @@ public class CRUDBus {
             return "Failure: " + ex.getMessage();
         }
     }
-
 }

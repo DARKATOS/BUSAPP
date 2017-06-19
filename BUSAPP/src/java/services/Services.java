@@ -17,6 +17,8 @@ import models.Bus;
 import models.CRUDBus;
 import models.CRUDLocation;
 import models.BusLocation;
+import models.BusWay;
+import models.CRUDBusWay;
 
 @Path("/services")
 public class Services {
@@ -42,29 +44,29 @@ public class Services {
     }
     
     @GET
-    @Path("/busLocationRegister/{id}")
+    @Path("/busLocationRegister/{idBus}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLocationRegister(@PathParam("id") int id) {
+    public String busLocationRegister(@PathParam("idBus") int idBus) {
         CRUDBus crud=new CRUDBus();
-        String success=crud.busLocationRegisterService(id);
+        String success=crud.busLocationRegisterService(idBus);
         return success;
     }
     
     @GET
-    @Path("/busLocationUpdate/{id}/{latitude}/{longitude}")
+    @Path("/busLocationUpdate/{idBus}/{latitude}/{longitude}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLocationUpdate(@PathParam("id") int id, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
+    public String busLocationUpdate(@PathParam("idBus") int idBus, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
         CRUDBus crud=new CRUDBus();
-        String success=crud.busLocationUpdateService(id, latitude, longitude);
+        String success=crud.busLocationUpdateService(idBus, latitude, longitude);
         return success;
     }
     
     @GET
-    @Path("/busLocationDelete/{id}")
+    @Path("/busLocationDelete/{idBus}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busLocationDelete(@PathParam("id") int id) {
+    public String busLocationDelete(@PathParam("idBus") int idBus) {
         CRUDBus crud=new CRUDBus();
-        String success=crud.busLocationDeleteService(id);
+        String success=crud.busLocationDeleteService(idBus);
         return success;
     }
     
@@ -77,5 +79,34 @@ public class Services {
         Gson json=new Gson();
         String result=json.toJson(locations);
         return result;
+    }
+    
+    @GET
+    @Path("/busWayRegister/{wayName, idBus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busWayRegister(@PathParam("wayName") String wayName, @PathParam("idBus") int idBus) {
+        CRUDBusWay crud=new CRUDBusWay();
+        String success=crud.busWayRegister(wayName, idBus);
+        return success;
+    }
+    
+    @GET
+    @Path("/busWayShow/{idBus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busWayShow(@PathParam("idBus") int idBus) {
+        CRUDBusWay crud=new CRUDBusWay();
+        ArrayList<BusWay>busWay=crud.busWayShow(idBus);
+        Gson json=new Gson();
+        String result=json.toJson(busWay);
+        return result;
+    }
+    
+    @GET
+    @Path("/busWayDelete/{idBus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busWayDelete(@PathParam("idBusWay") int idBusWay) {
+        CRUDBusWay crud=new CRUDBusWay();
+        String success=crud.busWayDelete(idBusWay);
+        return success;
     }
 }
