@@ -12,13 +12,15 @@ package models;
 public class BusWay {
     private int idbusWay;
     private String wayName;
-    private Bus bus;
+    private BusLocation busLocation;
 
-    public BusWay(int idbusWay, String wayName, Bus bus) {
+    public BusWay(int idbusWay, String wayName, BusLocation busLocation) {
         this.idbusWay = idbusWay;
         this.wayName = wayName;
-        this.bus = bus;
+        this.busLocation = busLocation;
     }
+    
+    
 
     public BusWay(int idbusWay) {
         this.idbusWay = idbusWay;
@@ -27,23 +29,22 @@ public class BusWay {
     public int getIdbusWay() {
         return idbusWay;
     }
-    
-
-    public Bus getBus() {
-        return bus;
-    }
 
     public String getWayName() {
         return wayName;
     }
-
-    public void setBus(Bus bus) {
-        this.bus = bus;
-    }
-
     public void setWayName(String wayName) {
         this.wayName = wayName;
     }
+
+    public BusLocation getBusLocation() {
+        return busLocation;
+    }
+
+    public void setBusLocation(BusLocation busLocation) {
+        this.busLocation = busLocation;
+    }
+    
     
     
 }

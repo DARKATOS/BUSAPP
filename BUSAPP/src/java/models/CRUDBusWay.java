@@ -16,19 +16,20 @@ import java.util.ArrayList;
  */
 public class CRUDBusWay {
     
-    public ArrayList<BusWay> busWayShow(int idbus)
+    public ArrayList<BusWay> busWayShow(int idBus)
     {
         try {
             EnableConnection connection = new EnableConnection();
             ArrayList<BusWay> busWay = new ArrayList();
             connection.setConnection();
             CallableStatement execute = connection.executeCall("call bus_way_show(?)");
-            execute.setInt(1, idbus);//Tipo String
+            execute.setInt(1, idBus);//Tipo String
             ResultSet result = execute.executeQuery();
             while (result.next()) {
                 int idbusWay = result.getInt("idbus_way");
                 String wayName = result.getString("way_name");
-                BusWay bw = new BusWay(idbusWay, wayName, new Bus(idbus));
+                int idBusLocation=result.getInt("bus_location_idbus_location");
+                BusWay bw = new BusWay(idbusWay, wayName, new BusLocation(idBusLocation, new Bus(idBus)));
                 busWay.add(bw);
             }
             connection.disconnect();
@@ -40,13 +41,15 @@ public class CRUDBusWay {
         }
     }
 
-    public String busWayRegister(String wayName, int idbus) {
-        Bus bus = new Bus(idbus);
+    public String busWayRegister(String wayName, int idBus, int idBusLocation) {
+        BusWay busWay=new BusWay(-1, wayName, new BusLocation(idBusLocation, new Bus(idBus)));
         EnableConnection connection = new EnableConnection();
         connection.setConnection();
         try {
-            CallableStatement execute = connection.executeCall("call bus_way_register(?)");
-            execute.setInt(1, bus.getId());
+            CallableStatement execute = connection.executeCall("call bus_way_register(?, ?, ?)");
+            execute.setString(1, busWay.getWayName());
+            execute.setInt(2, busWay.getBusLocation().getBus().getId());
+            execute.setInt(3, busWay.getBusLocation().getId());
             execute.executeUpdate();
             return "Success";
 

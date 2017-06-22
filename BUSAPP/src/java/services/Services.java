@@ -82,11 +82,11 @@ public class Services {
     }
     
     @GET
-    @Path("/busWayRegister/{wayName, idBus}")
+    @Path("/busWayRegister/{wayName}/{idBus}/{idBusLocation}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String busWayRegister(@PathParam("wayName") String wayName, @PathParam("idBus") int idBus) {
+    public String busWayRegister(@PathParam("wayName") String wayName, @PathParam("idBus") int idBus,@PathParam("idBusLocation") int idBusLocation) {
         CRUDBusWay crud=new CRUDBusWay();
-        String success=crud.busWayRegister(wayName, idBus);
+        String success=crud.busWayRegister(wayName, idBus, idBusLocation);
         return success;
     }
     
@@ -102,7 +102,7 @@ public class Services {
     }
     
     @GET
-    @Path("/busWayDelete/{idBus}")
+    @Path("/busWayDelete/{idBusWay}")
     @Produces(MediaType.APPLICATION_JSON)
     public String busWayDelete(@PathParam("idBusWay") int idBusWay) {
         CRUDBusWay crud=new CRUDBusWay();

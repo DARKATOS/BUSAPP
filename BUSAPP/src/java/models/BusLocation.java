@@ -21,8 +21,14 @@ public class BusLocation {
         this.longitude = longitude;
         this.bus = bus;
     }
-
-   
+    
+    public BusLocation(int id, Bus bus) {
+        this.id = id;
+        this.latitude = 0-1;
+        this.longitude = -1;
+        this.bus = bus;
+    }
+       
     public Bus getBus() {
         return bus;
     }

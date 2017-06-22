@@ -109,16 +109,16 @@ delimiter ;
 
 drop procedure bus_way_register;
 delimiter ;;
-create procedure bus_way_register(way_namep varchar(45), idbusp integer)
+create procedure bus_way_register(way_namep varchar(45), idbusp integer, idbus_locationp integer)
 begin
-	INSERT INTO bus_way values(default, way_namep, idbusp);
+	INSERT INTO bus_way values(default, way_namep, idbusp, idbus_locationp);
 end;;
 delimiter ;
 
 drop procedure bus_way_delete;
 delimiter ;;
-create procedure bus_way_delete(way_namep integer, idbusp integer)
+create procedure bus_way_delete(idbus_wayp integer)
 begin
-	DELETE FROM bus_way WHERE way_namep=way_name and idbusp=bus_idbus;
+	DELETE FROM bus_way WHERE idbus_way=idbus_wayp;
 end;;
 delimiter ;
